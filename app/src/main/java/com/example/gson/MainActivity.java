@@ -2,6 +2,7 @@ package com.example.gson;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.gson.services.RetrofitService;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void busca() {
+        Log.d("iftm","-----------");
         RetrofitService.getServico().obterUsuarios().enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -31,16 +33,18 @@ public class MainActivity extends AppCompatActivity {
                 for (User user : lista) {
                     campo.append("\nId: " + user.getId() +
                             "\nNome: " + user.getName() +
+                            "\nEndereço: " + user.getAddress().getStreet() +
                             "\nEmail: " + user.getEmail() +
-                            "\n\nNome: " + user.getPhone());
-
-
+                            "\nUser" + user.getUsername() +
+                            "\nPhone: " + user.getPhone() +
+                            "\nWebSite: " + user.getWebsite()
+                            + "\n");
                 }
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-
+                Log.d("iftm","-----------"+t.getMessage());
             }
         });
     }
